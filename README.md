@@ -110,7 +110,7 @@ This code would display the scores as in the screenshot below:
 ![Risk scores](./images/risk_scores.png)
 
 ---
-##Risk Widgets
+## Risk Widgets
 
 Given `widgetData` that looks like this:
 
