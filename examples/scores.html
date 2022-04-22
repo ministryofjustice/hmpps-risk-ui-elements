@@ -1,0 +1,52 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+Risk scores – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-xl">
+    Risk Scores
+</h1>
+
+<div class="govuk-grid-row">
+    <div id="predictor-scores" class="govuk-grid-column-two-thirds">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h2 class="govuk-heading-l score-header">RSR score</h2>
+                {{ predictorScore(riskScores.current.scores.RSR) }}
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <h2 class="govuk-heading-l score-header">OSP/C score</h2>
+                {{ predictorScore(riskScores.current.scores.OSPC) }}
+            </div>
+            <div class="govuk-grid-column-one-half">
+                <h2 class="govuk-heading-l score-header">OSP/I score</h2>
+                {{ predictorScore(riskScores.current.scores.OSPI) }}
+            </div>
+        </div>
+
+
+        <div id="predictor-scores-history" class="govuk-grid-row govuk-!-margin-top-6">
+            <div class="govuk-grid-column-full">
+                <div class="govuk-body predictor-timeline__heading">
+                    <h2 class="govuk-heading-l">Scores history</h2>
+                    <a id="predictor-timeline__toggle-all" href="#" class="govuk-link">Open all</a>
+                </div>
+                {{ predictorTimeline(riskScores.historical) }}
+            </div>
+        </div>
+    </div>
+
+    {% if riskScores.historical.length %}
+    <div id="predictor-scores" class="govuk-grid-column-one-third">
+        {{ widgets(widgetData) }}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
