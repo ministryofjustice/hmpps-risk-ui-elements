@@ -127,6 +127,7 @@ Given `widgetData` that looks like this:
     "Hate Crime"
   ],
   "roshRiskSummary": {
+    "hasBeenCompleted": true,
     "overallRisk": "VERY_HIGH",
     "riskToChildren": "LOW",
     "riskToPublic": "VERY_HIGH",
@@ -146,7 +147,17 @@ This code would display the risk widgets as in the screenshot below:
 ```
 ![Risk widgets](./images/risk_widgets.png)
 
+Where `mappa` is `{}`, `flags` are `[]` or `roshRiskSummary` is `{ hasBeenCompleted: false }` the widgets will display a notification indicating the information is unavailable for the given CRN. This is typically in response to `404` returned from upstream APIs.
 
+![MAPPA or risk flags not found](./images/mappa_flags_not_found.png)
+
+![RoSH risk summary not found](./images/rosh_not_found.png)
+
+Where `mappa`, `flags` or `roshRiskSummary` are `null` the widgets will display a notification indicating `Something went wrong..`. Typically this is displayed when receiving a `4XX - 5XX` error from upstream APIs - not inclusive of the `404` as mentioned above.
+
+![Failed to fetch MAPPA or risk flags](./images/mappa_flags_server_error.png)
+
+![Failed to fetch RoSH risk summary](./images/rosh_server_error.png)
 
 
 # Using the widgets in the prototyping kit
