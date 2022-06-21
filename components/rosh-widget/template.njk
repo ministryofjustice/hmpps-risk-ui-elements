@@ -68,14 +68,14 @@ rosh-widget__risk--low
     </table>
 </div>
 {% elif roshSummary and not roshSummary.hasBeenCompleted %}
-<div class="rosh-widget {{ roshWidgetClass }}">
-    <h3 class="govuk-heading-m"><strong>NO</strong> RoSH</h3>
+<div class="rosh-widget rosh-widget--unknown">
+    <h3 class="govuk-heading-m"><strong>UNKNOWN LEVEL</strong> RoSH</h3>
     <p class="govuk-body-m">Risk of serious harm</p>
-    <p class="govuk-hint govuk-body-m">A RoSH summary has not been completed for this individual.</p>
+    <p class="govuk-hint govuk-body-m">A RoSH summary has not been completed for this individual. Check OASys for this persons current assessment status.</p>
 </div>
 {% else %}
-<div class="rosh-widget {{ roshWidgetClass }}">
-    <h3 class="govuk-heading-m"><strong>UNKNOWN</strong> RoSH</h3>
+<div class="rosh-widget">
+    <h3 class="govuk-heading-m"><strong>UNKNOWN LEVEL</strong> RoSH</h3>
     <p class="govuk-body-m">Risk of serious harm</p>
     <p class="govuk-hint govuk-body-m">Something went wrong. We are unable to show RoSH information at this time. Try again later.</p>
 </div>
