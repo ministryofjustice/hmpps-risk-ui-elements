@@ -70,6 +70,24 @@ router.get('/scores', function (req, res) {
   }
 
   const widgetData = {
+    roshRiskSummary: {
+      hasBeenCompleted: true,
+      overallRisk: 'VERY_HIGH',
+      riskInCommunity: {
+        'Children': 'LOW',
+        'Public': 'VERY_HIGH',
+        'Known Adult': 'MEDIUM',
+        'Staff': 'HIGH'
+      },
+      riskInCustody: {
+        'Children': 'LOW',
+        'Public': 'VERY_HIGH',
+        'Known Adult': 'MEDIUM',
+        'Staff': 'HIGH',
+        'Prisoners': 'MEDIUM'
+      },
+      lastUpdated: '10th October 2021'
+    },
     mappa: {
       level: 'CAT 2/LEVEL 1',
       isNominal: false,
@@ -77,15 +95,7 @@ router.get('/scores', function (req, res) {
     },
     flags: [
       'Hate Crime'
-    ],
-    roshRiskSummary: {
-      overallRisk: 'VERY_HIGH',
-      riskToChildren: 'LOW',
-      riskToPublic: 'VERY_HIGH',
-      riskToKnownAdult: 'MEDIUM',
-      riskToStaff: 'HIGH',
-      lastUpdated: '10th October 2021'
-    }
+    ]
   }
 
   res.render('scores', { riskScores, widgetData })

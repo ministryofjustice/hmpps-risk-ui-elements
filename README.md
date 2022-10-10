@@ -112,68 +112,15 @@ This code would display the scores as in the screenshot below:
 </div>
 ```
 
-![Risk scores](./images/risk_scores.png)
+<img src="./images/risk_scores.png" width=75% height=75%>
 
 ---
 ## Risk Widgets
 
-Given `widgetData` that looks like this:
-
-```json
-{
-  "mappa": {
-    "level": "CAT 2/LEVEL 1",
-    "isNominal": false,
-    "lastUpdated": "10th October 2021"
-  },
-  "flags": [
-    "Hate Crime"
-  ],
-  "roshRiskSummary": {
-    "hasBeenCompleted": true,
-    "overallRisk": "VERY_HIGH",
-    "riskInCommunity": {
-      "Children": "LOW",
-      "Public": "VERY_HIGH",
-      "Known Adult": "MEDIUM",
-      "Staff": "HIGH"
-    },
-    "riskInCustody": {
-      "Children": "LOW",
-      "Public": "VERY_HIGH",
-      "Known Adult": "MEDIUM",
-      "Staff": "HIGH",
-      "Prisoners": "MEDIUM"
-    }
-    "lastUpdated": "10th October 2021"
-  }
-}
-```
-
-This code would display the risk widgets as in the screenshot below:
-
-```nunjucks
-{% from "components/widgets/macro.njk" import widgets %}
-
-<div class="govuk-grid-column-one-quarter">
-    {{ widgets(widgetData) }}
-</div>
-```
-
-![Risk widgets](./images/risk_widgets.png)
-
-Where `mappa` is `{}`, `flags` are `[]` or `roshRiskSummary` is `{ hasBeenCompleted: false }` the widgets will display a notification indicating the information is unavailable for the given CRN. This is typically in response to `404` returned from upstream APIs.
-
-![MAPPA or risk flags not found](./images/mappa_flags_not_found.png)
-
-![RoSH risk summary not found](./images/rosh_not_found.png)
-
-Where `mappa`, `flags` or `roshRiskSummary` are `null` the widgets will display a notification indicating `Something went wrong..`. Typically this is displayed when receiving a `4XX - 5XX` error from upstream APIs - not inclusive of the `404` as mentioned above.
-
-![Failed to fetch MAPPA or risk flags](./images/mappa_flags_server_error.png)
-
-![Failed to fetch RoSH risk summary](./images/rosh_server_error.png)
-
+Documentation can be found here
+- [RoSH widget](components/rosh-widget/README.md)
+- [MAPPA widget](components/mappa-widget/README.md)
+- [Risk flag (registrations) widget](components/risk-flag-widget/README.md)
 
 # Using the widgets in the prototyping kit
 
@@ -203,7 +150,9 @@ Edit `app/views/layout.html` - add the following lines after the other template 
 ```nunjucks
 {% from "components/predictor-score/macro.njk" import predictorScore %}
 {% from "components/predictor-timeline/macro.njk" import predictorTimeline %}
-{% from "components/widgets/macro.njk" import widgets %}
+{% from "components/rosh-widget/macro.njk" import roshWidget %}
+{% from "components/mappa-widget/macro.njk" import riskFlagWidget %}
+{% from "components/risk-flag-widget/macro.njk" import mappaWidget %}
 ```
 
 ## Show the widgets on a page
