@@ -7,74 +7,77 @@ These can be used in a similar way to other components in the GOV.UK and MoJ fro
 ## Risk scores
 
 Given that the `predictorScores` data is as follows:
-```
+
+```json
 {
-      current: {
-        date: '23 Jul 2021 at 12:00:00',
-        scores: {
-          RSR: {
-            level: 'HIGH',
-            score: 11.34,
-            type: 'RSR',
+      "current": {
+        "date": "23 Jul 2021 at 12:00:00",
+        "scores": {
+          "RSR": {
+            "level": "HIGH",
+            "score": 11.34,
+            "type": "RSR",
           },
-          OSPC: {
-            level: 'MEDIUM',
-            score: 8.76,
-            type: 'OSP/C',
+          "OSPC": {
+            "level": "MEDIUM",
+            "score": 8.76,
+            "type": "OSP/C",
           },
-          OSPI: {
-            level: 'LOW',
-            score: 3.45,
-            type: 'OSP/I',
+          "OSPI": {
+            "level": "LOW",
+            "score": 3.45,
+            "type": "OSP/I",
           },
         },
       },
-      historical: [
+      "historical": [
       {
-        date: '14 May 2019 at 12:00:00',
-        scores: {
-          RSR: {
-            level: 'HIGH',
-            score: 10.3,
-            type: 'RSR'
+        "date": "14 May 2019 at 12:00:00",
+        "scores": {
+          "RSR": {
+            "level": "HIGH",
+            "score": 10.3,
+            "type": "RSR"
           },
-          OSPC: {
-            level: 'MEDIUM',
-            score: 7.76,
-            type: 'OSP/C'
+          "OSPC": {
+            "level": "MEDIUM",
+            "score": 7.76,
+            "type": "OSP/C"
           },
-          OSPI: {
-            level: 'LOW',
-            score: 3.45,
-            type: 'OSP/I'
+          "OSPI": {
+            "level": "LOW",
+            "score": 3.45,
+            "type": "OSP/I"
           }
         }
       },
       {
-        date: '12 September 2018 at 12:00:00',
-        scores: {
-          RSR: {
-            level: 'MEDIUM',
-            score: 5.34,
-            type: 'RSR'
+        "date": "12 September 2018 at 12:00:00",
+        "scores": {
+          "RSR": {
+            "level": "MEDIUM",
+            "score": 5.34,
+            "type": "RSR"
           },
-          OSPC: {
-            level: 'MEDIUM',
-            score: 6.76,
-            type: 'OSP/C'
+          "OSPC": {
+            "level": "MEDIUM",
+            "score": 6.76,
+            "type": "OSP/C"
           },
-          OSPI: {
-            level: 'LOW',
-            score: 3.45,
-            type: 'OSP/I'
+          "OSPI": {
+            "level": "LOW",
+            "score": 3.45,
+            "type": "OSP/I"
           }
         }
       }
     ]
     }
 ```
+
 This code would display the scores as in the screenshot below:
-```
+
+```nunjucks
 {% from "components/predictor-score/macro.njk" import predictorScore %}
 {% from "components/predictor-timeline/macro.njk" import predictorTimeline %}
 
@@ -107,58 +110,17 @@ This code would display the scores as in the screenshot below:
     </div>
     {% endif %}
 </div>
-
 ```
-![Risk scores](./images/risk_scores.png)
+
+<img src="./images/risk_scores.png" width=75% height=75%>
 
 ---
 ## Risk Widgets
 
-Given `widgetData` that looks like this:
-
-```
-{
-  "mappa": {
-    "level": "CAT 2/LEVEL 1",
-    "isNominal": false,
-    "lastUpdated": "10th October 2021"
-  },
-  "flags": [
-    "Hate Crime"
-  ],
-  "roshRiskSummary": {
-    "hasBeenCompleted": true,
-    "overallRisk": "VERY_HIGH",
-    "riskToChildren": "LOW",
-    "riskToPublic": "VERY_HIGH",
-    "riskToKnownAdult": "MEDIUM",
-    "riskToStaff": "HIGH",
-    "lastUpdated": "10th October 2021"
-  }
-}
-```
-This code would display the risk widgets as in the screenshot below:
-```
-{% from "components/widgets/macro.njk" import widgets %}
-
-<div class="govuk-grid-column-one-quarter">
-    {{ widgets(widgetData) }}
-</div>
-```
-![Risk widgets](./images/risk_widgets.png)
-
-Where `mappa` is `{}`, `flags` are `[]` or `roshRiskSummary` is `{ hasBeenCompleted: false }` the widgets will display a notification indicating the information is unavailable for the given CRN. This is typically in response to `404` returned from upstream APIs.
-
-![MAPPA or risk flags not found](./images/mappa_flags_not_found.png)
-
-![RoSH risk summary not found](./images/rosh_not_found.png)
-
-Where `mappa`, `flags` or `roshRiskSummary` are `null` the widgets will display a notification indicating `Something went wrong..`. Typically this is displayed when receiving a `4XX - 5XX` error from upstream APIs - not inclusive of the `404` as mentioned above.
-
-![Failed to fetch MAPPA or risk flags](./images/mappa_flags_server_error.png)
-
-![Failed to fetch RoSH risk summary](./images/rosh_server_error.png)
-
+Documentation can be found here
+- [RoSH widget](components/rosh-widget/README.md)
+- [MAPPA widget](components/mappa-widget/README.md)
+- [Risk flag (registrations) widget](components/risk-flag-widget/README.md)
 
 # Using the widgets in the prototyping kit
 
@@ -169,7 +131,7 @@ After installing the prototyping kit in the normal way, copy the files in the `s
 
 Now edit `app/assets/sass/application.scss`  to import the style files after the other stylesheet imports (around line 18 when the kit is installed):
 
-```
+```scss
 @import "risk/predictor-scores";
 @import "risk/widgets";
 @import "risk/timeline";
@@ -185,10 +147,12 @@ Copy the `components` folder and its contents from this repo into `app/views/`.
 
 Edit `app/views/layout.html` - add the following lines after the other template import statements around line 33:
 
-```
+```nunjucks
 {% from "components/predictor-score/macro.njk" import predictorScore %}
 {% from "components/predictor-timeline/macro.njk" import predictorTimeline %}
-{% from "components/widgets/macro.njk" import widgets %}
+{% from "components/rosh-widget/macro.njk" import roshWidget %}
+{% from "components/mappa-widget/macro.njk" import riskFlagWidget %}
+{% from "components/risk-flag-widget/macro.njk" import mappaWidget %}
 ```
 
 ## Show the widgets on a page

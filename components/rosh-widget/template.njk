@@ -1,82 +1,87 @@
+{# Please ensure that any changes made here are also reflected in https://github.com/ministryofjustice/hmpps-risk-ui-elements #}
+
 {% macro getOverallRiskLevelClass(level) %}
-{% if level == 'VERY_HIGH' %}
-rosh-widget--very-high
-{% elif level == 'HIGH' %}
-rosh-widget--high
-{% elif level == 'MEDIUM' %}
-rosh-widget--medium
-{% elif level == 'LOW' %}
-rosh-widget--low
-{% endif %}
+    {% if level == 'VERY_HIGH' %}
+    rosh-widget--very-high
+    {% elif level == 'HIGH' %}
+    rosh-widget--high
+    {% elif level == 'MEDIUM' %}
+    rosh-widget--medium
+    {% elif level == 'LOW' %}
+    rosh-widget--low
+  {% endif %}
 {% endmacro %}
 
 {% macro getRiskLevelText(level) %}
-{% if level == 'VERY_HIGH' %}
-Very high
-{% elif level == 'HIGH' %}
-High
-{% elif level == 'MEDIUM' %}
-Medium
-{% elif level == 'LOW' %}
-Low
-{% endif %}
+    {% if level == 'VERY_HIGH' %}
+    Very high
+    {% elif level == 'HIGH' %}
+    High
+    {% elif level == 'MEDIUM' %}
+    Medium
+    {% elif level == 'LOW' %}
+    Low
+  {% endif %}
 {% endmacro %}
 
 {% macro getRiskLevelClass(level) %}
-{% if level == 'VERY_HIGH' %}
-rosh-widget__risk--very-high
-{% elif level == 'HIGH' %}
-rosh-widget__risk--high
-{% elif level == 'MEDIUM' %}
-rosh-widget__risk--medium
-{% elif level == 'LOW' %}
-rosh-widget__risk--low
-{% endif %}
+    {% if level == 'VERY_HIGH' %}
+    rosh-widget__risk--very-high
+    {% elif level == 'HIGH' %}
+    rosh-widget__risk--high
+    {% elif level == 'MEDIUM' %}
+    rosh-widget__risk--medium
+    {% elif level == 'LOW' %}
+    rosh-widget__risk--low
+  {% endif %}
+{% endmacro %}
+
+{% macro renderRiskTable(label, riskData) %}
+    {% if riskData %}
+        <table class="govuk-table rosh-widget__table">
+            <caption class="govuk-visually-hidden">Risk of serious harm in {{ label }}</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header">Risk to</th>
+                    <th class="govuk-table__header">{{ label }}</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                {% for key, value in riskData %}
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header">{{ key }}</th>
+                        <td class="govuk-table__cell {{ getRiskLevelClass(value) }}">{{ getRiskLevelText(value) | default("No data") }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endmacro %}
 
 {% if roshSummary and roshSummary.hasBeenCompleted %}
-<div class="rosh-widget {{ getOverallRiskLevelClass(roshSummary.overallRisk) }}">
-    <h3 class="govuk-heading-m"><strong>{{ getRiskLevelText(roshSummary.overallRisk) | upper }}</strong> RoSH</h3>
-    <p class="govuk-body-m">Risk of serious harm</p>
-    <p class="govuk-hint govuk-body-m">Last updated: {{ roshSummary.lastUpdated | default("Not known") }}</p>
+    <aside class="rosh-widget {{ getOverallRiskLevelClass(roshSummary.overallRisk) }}" aria-label="Risk of serious harm summary">
+        <h3 class="govuk-heading-m">
+            <strong>{{ getRiskLevelText(roshSummary.overallRisk) | upper }}</strong> RoSH</h3>
+        <p class="govuk-body-m">Risk of serious harm</p>
+        <p class="govuk-hint govuk-body-m">Last updated: {{ roshSummary.lastUpdated | default("Not known") }}</p>
 
-    <table class="govuk-table rosh-widget__table">
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header">Risk to</th>
-                <th class="govuk-table__header">Community</th>
-            </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header">Children</th>
-                <td class="govuk-table__cell {{ getRiskLevelClass(roshSummary.riskToChildren) }}">{{ getRiskLevelText(roshSummary.riskToChildren) | default("No data") }}</td>
-            </tr>
-            <tr>
-                <th class="govuk-table__header">Public</th>
-                <td class="govuk-table__cell {{ getRiskLevelClass(roshSummary.riskToPublic) }}">{{ getRiskLevelText(roshSummary.riskToPublic) | default("No data") }}</td>
-            </tr>
-            <tr>
-                <th class="govuk-table__header">Known adult</th>
-                <td class="govuk-table__cell {{ getRiskLevelClass(roshSummary.riskToKnownAdult) }}">{{ getRiskLevelText(roshSummary.riskToKnownAdult) | default("No data") }}</td>
-            </tr>
-            <tr>
-                <th class="govuk-table__header">Staff</th>
-                <td class="govuk-table__cell {{ getRiskLevelClass(roshSummary.riskToStaff) }}">{{ getRiskLevelText(roshSummary.riskToStaff) | default("No data") }}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        {{ renderRiskTable("Community", roshSummary.riskInCommunity) }}
+        {{ renderRiskTable("Custody", roshSummary.riskInCustody) }}
+    </aside>
 {% elif roshSummary and not roshSummary.hasBeenCompleted %}
-<div class="rosh-widget rosh-widget--unknown">
-    <h3 class="govuk-heading-m"><strong>UNKNOWN LEVEL</strong> RoSH</h3>
-    <p class="govuk-body-m">Risk of serious harm</p>
-    <p class="govuk-hint govuk-body-m">A RoSH summary has not been completed for this individual. Check OASys for this persons current assessment status.</p>
-</div>
+    <aside class="rosh-widget rosh-widget--unknown" aria-label="Risk of serious harm summary">
+        <h3 class="govuk-heading-m">
+            <strong>UNKNOWN LEVEL</strong> RoSH</h3>
+        <p class="govuk-body-m">Risk of serious harm</p>
+        <p class="govuk-hint govuk-body-m">A RoSH summary has not been completed for this individual. Check OASys for this
+      person's current assessment status.</p>
+    </aside>
 {% else %}
-<div class="rosh-widget">
-    <h3 class="govuk-heading-m"><strong>UNKNOWN LEVEL</strong> RoSH</h3>
-    <p class="govuk-body-m">Risk of serious harm</p>
-    <p class="govuk-hint govuk-body-m">Something went wrong. We are unable to show RoSH information at this time. Try again later.</p>
-</div>
+    <aside class="rosh-widget" aria-label="Risk of serious harm summary">
+        <h3 class="govuk-heading-m">
+            <strong>UNKNOWN LEVEL</strong> RoSH</h3>
+        <p class="govuk-body-m">Risk of serious harm</p>
+        <p class="govuk-hint govuk-body-m">Something went wrong. We are unable to show RoSH information at this time. Try
+      again later.</p>
+    </aside>
 {% endif %}

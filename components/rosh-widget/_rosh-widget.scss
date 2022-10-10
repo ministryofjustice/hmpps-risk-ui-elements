@@ -7,10 +7,9 @@ $high-score-border-colour: #d4351c;
 $very-high-score-colour: #711a0d;
 $very-high-score-border-colour: #942514;
 $unknown-score-border-colour: #fd0;
-$mappa-colour: #4c2c92;
 
 .rosh-widget {
-  border: 2px solid govuk-colour("black");
+  border: 2px solid govuk-colour('black');
   padding: govuk-spacing(4);
   margin-bottom: govuk-spacing(4);
 
@@ -85,23 +84,4 @@ $mappa-colour: #4c2c92;
 
 .rosh-widget__risk--very-high {
   color: $very-high-score-colour;
-}
-
-.mappa-widget {
-  border: 2px solid $mappa-colour;
-  padding: govuk-spacing(4);
-  margin-bottom: govuk-spacing(4);
-
-  & h3 {
-    color: $mappa-colour;
-    margin-bottom: govuk-spacing(1);
-    font-weight: 400;
-  }
-}
-
-.risk-flag-widget {
-  border: 2px solid #93afc3;
-  background-color: #ebf7ff;
-  padding: govuk-spacing(4);
-  margin-bottom: govuk-spacing(4);
 }

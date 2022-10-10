@@ -1,0 +1,9 @@
+$risk-flag-colour: #ebf7ff;
+$risk-flag-border-colour: #93afc3;
+
+.risk-flag-widget {
+  border: 2px solid $risk-flag-border-colour;
+  background-color: $risk-flag-colour;
+  padding: govuk-spacing(4);
+  margin-bottom: govuk-spacing(4);
+}
