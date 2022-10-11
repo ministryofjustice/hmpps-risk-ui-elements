@@ -5,8 +5,7 @@
 |Name|Type|Required|Description|
 |---|---|---|---|
 |level|String|Yes|the MAPPA level that is displayed|
-|isNominal|String|Yes|is MAPPA nominal?|
-|lastUpdated|String|Yes|the MAPPA level that is displayed|
+|lastUpdated|String|Yes|when the MAPPA flag was last updated|
 
 ## Example
 Below is a typical example of this component in use
@@ -16,7 +15,6 @@ Below is a typical example of this component in use
 
 {{ mappaWidget({
     level: "CAT 2/LEVEL 1",
-    isNominal: false,
     lastUpdated: "10th October 2021"
 }) }}
 ```
