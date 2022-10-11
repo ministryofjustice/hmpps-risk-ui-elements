@@ -10,7 +10,7 @@
 |riskInCommunity|Map|No|risk levels in the community|
 |riskInCustody|Map|No|risk levels in the community|
 
-where risk levels can be one of `LOW`, `MEDIUM`, `HIGH`, and `VERY_HIGH`
+where risk levels can be `LOW`, `MEDIUM`, `HIGH`, or `VERY_HIGH`
 
 ## Example
 
