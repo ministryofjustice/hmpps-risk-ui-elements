@@ -3,124 +3,20 @@ Templates and styles for displaying consistent risk information UI elements in H
 
 These can be used in a similar way to other components in the GOV.UK and MoJ frontend systems.
 
-# Examples
-## Risk scores
+# Components
 
-Given that the `predictorScores` data is as follows:
+## In use
+These are currently implemented and live in the Assess Risks and Needs UI
 
-```json
-{
-      "current": {
-        "date": "23 Jul 2021 at 12:00:00",
-        "scores": {
-          "RSR": {
-            "level": "HIGH",
-            "score": 11.34,
-            "type": "RSR",
-          },
-          "OSPC": {
-            "level": "MEDIUM",
-            "score": 8.76,
-            "type": "OSP/C",
-          },
-          "OSPI": {
-            "level": "LOW",
-            "score": 3.45,
-            "type": "OSP/I",
-          },
-        },
-      },
-      "historical": [
-      {
-        "date": "14 May 2019 at 12:00:00",
-        "scores": {
-          "RSR": {
-            "level": "HIGH",
-            "score": 10.3,
-            "type": "RSR"
-          },
-          "OSPC": {
-            "level": "MEDIUM",
-            "score": 7.76,
-            "type": "OSP/C"
-          },
-          "OSPI": {
-            "level": "LOW",
-            "score": 3.45,
-            "type": "OSP/I"
-          }
-        }
-      },
-      {
-        "date": "12 September 2018 at 12:00:00",
-        "scores": {
-          "RSR": {
-            "level": "MEDIUM",
-            "score": 5.34,
-            "type": "RSR"
-          },
-          "OSPC": {
-            "level": "MEDIUM",
-            "score": 6.76,
-            "type": "OSP/C"
-          },
-          "OSPI": {
-            "level": "LOW",
-            "score": 3.45,
-            "type": "OSP/I"
-          }
-        }
-      }
-    ]
-    }
-```
-
-This code would display the scores as in the screenshot below:
-
-```nunjucks
-{% from "components/predictor-score/macro.njk" import predictorScore %}
-{% from "components/predictor-timeline/macro.njk" import predictorTimeline %}
-
-<div class="govuk-grid-row">
-    <div id="predictor-scores" class="govuk-grid-column-two-thirds">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <h2 class="govuk-heading-l score-header">RSR score</h2>
-                {{ predictorScore(predictorScores.current.scores.RSR) }}
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
-                <h2 class="govuk-heading-l score-header">OSP/C score</h2>
-                {{ predictorScore(predictorScores.current.scores.OSPC) }}
-            </div>
-            <div class="govuk-grid-column-one-half">
-                <h2 class="govuk-heading-l score-header">OSP/I score</h2>
-                {{ predictorScore(predictorScores.current.scores.OSPI) }}
-            </div>
-        </div>
-    </div>
-    {% if predictorScores.historical.length %}
-    <div id="predictor-scores-history" class="govuk-grid-column-one-third">
-        <div class="govuk-body predictor-timeline__heading">
-            <h2 class="govuk-heading-l">Scores history</h2>
-            <a id="predictor-timeline__toggle-all" href="#" class="govuk-link">Open all</a>
-        </div>
-        {{ predictorTimeline(predictorScores.historical) }}
-    </div>
-    {% endif %}
-</div>
-```
-
-<img src="./images/risk_scores.png" width=75% height=75%>
-
----
-## Risk Widgets
-
-Documentation can be found here
 - [RoSH widget](components/rosh-widget/README.md)
 - [MAPPA widget](components/mappa-widget/README.md)
 - [Risk flag (registrations) widget](components/risk-flag-widget/README.md)
+
+## Experimental
+These are prototyped components that are not currently in use
+
+- [Risk predictor scores](components/predictor-scores/README.md)
+- [Risk predictor score timeline](components/predictor-timeline/README.md)
 
 # Using the widgets in the prototyping kit
 
